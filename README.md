@@ -46,11 +46,12 @@ steps:
       TYPESENSE_API_KEY: ${{ secrets.TYPESENSE_API_KEY }}   # Make sure this matches the name of your secret
       TYPESENSE_HOST: xxx.a1.typesense.net    # Replace with the hostname of your Typesense server
       TYPESENSE_PORT: 8081    # Replace with the port of your Typesense server
+      TYPESENSE_PROTOCOL: http    # Replace with "https" if necessary
       CONFIG_PATH: /path/to/your/docsearch.config.json    # Replace with the path to your DocSearch config file (relative to the root of your repository)
 ```
 
-The `TYPESENSE_PORT` and `CONFIG_PATH` arguments are optional; if you don't specify them, they will default to
-`8081` and `docsearch.config.json`, respectively.
+The `TYPESENSE_PORT`, `TYPESENSE_PROTOCOL`, and `CONFIG_PATH` arguments are optional; if you don't specify them, they will default to
+`8081`, `http`, and `docsearch.config.json`, respectively.
 
 When run, the action will scrape your website according to your DocSearch config file and push the results to Typesense.
 

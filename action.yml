@@ -17,7 +17,7 @@ inputs:
         required: false
         default: "8108"
     TYPESENSE_PROTOCOL:
-        description: The protocol over which the crawler should connect to your site. Defaults to "http".
+        description: The protocol over which the scraper should connect to your Typesense server. Defaults to "http".
         required: false
         default: http
     CONFIG_PATH:
@@ -28,7 +28,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Run DocSearch Crawler
+    - name: Run DocSearch Scraper
       shell: bash
       run: |
         docker run \
