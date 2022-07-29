@@ -1,0 +1,45 @@
+name: Run Typesense DocSearch Scraper
+description: Crawl and index your documentation site for Typesense DocSearch
+
+branding:
+  icon: search
+  color: black
+
+inputs:
+    TYPESENSE_API_KEY:
+        description: Your Typesense API Key.
+        required: true
+    TYPESENSE_HOST:
+        description: The hostname or IP address of your Typesense server.
+        required: true
+    TYPESENSE_PORT:
+        description: The port of your Typesense server. Defaults to "8108".
+        required: false
+        default: "8108"
+    TYPESENSE_PROTOCOL:
+        description: The protocol over which the crawler should connect to your site. Defaults to "http".
+        required: false
+        default: http
+    CONFIG_PATH:
+        description: The path to your DocSearch config JSON file, relative to the root of your repository. Defaults to "docsearch.config.json".
+        required: false
+        default: docsearch.config.json
+
+runs:
+  using: composite
+  steps:
+    - name: Run DocSearch Crawler
+      shell: bash
+      run: |
+        docker run \
+          -e TYPESENSE_API_KEY="$TYPESENSE_API_KEY" \
+          -e TYPESENSE_HOST="$TYPESENSE_HOST" \
+          -e TYPESENSE_PORT="$TYPESENSE_PORT" \
+          -e TYPESENSE_PROTOCOL="$TYPESENSE_PROTOCOL" \
+          -e CONFIG="$(cat ${{ inputs.CONFIG_PATH }} | jq -r tostring)" \
+          typesense/docsearch-scraper
+      env:
+        TYPESENSE_API_KEY: ${{ inputs.TYPESENSE_API_KEY }}
+        TYPESENSE_HOST: ${{ inputs.TYPESENSE_HOST }}
+        TYPESENSE_PORT: ${{ inputs.TYPESENSE_PORT }}
+        TYPESENSE_PROTOCOL: ${{ inputs.TYPESENSE_PROTOCOL }}
