@@ -1,5 +1,8 @@
 # typesense-scraper
 
+<a href="https://github.com/celsiusnarhwal/typesense-scraper/releases"><img alt="GitHub release (latest SemVer)" src="https://img.shields.io/github/v/release/celsiusnarhwal/typesense-scraper?color=orange&label=latest%20release&logo=github&style=for-the-badge"></a>
+
+
 This GitHub Action will run [Typesense](https://typesense.org)'s [DocSearch Scraper](https://github.com/typesense/typesense-docsearch-scraper)
 on your documentation site. This action was created with GitHub Pages sites in mind, but strictly speaking, it will
 work on any repository that has a DocSearch config file. What's that, you ask? We'll get to that in a moment.
