@@ -27,7 +27,7 @@ inputs:
 
 runs:
   using: docker
-  image: typesense/docsearch-scraper
+  image: docker://typesense/docsearch-scraper
   env:
       TYPESENSE_API_KEY: ${{ inputs.api-key }}
       TYPESENSE_HOST: ${{ inputs.host }}
