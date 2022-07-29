@@ -33,4 +33,4 @@ runs:
       TYPESENSE_HOST: ${{ inputs.host }}
       TYPESENSE_PORT: ${{ inputs.port }}
       TYPESENSE_PROTOCOL: ${{ inputs.protocol }}
-      TYPESENSE_CONFIG: ${{ inputs.config }}
+      CONFIG: ${{ inputs.config }}
