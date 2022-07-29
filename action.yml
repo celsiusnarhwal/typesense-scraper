@@ -6,21 +6,21 @@ branding:
   color: black
 
 inputs:
-    TYPESENSE_API_KEY:
+    api-key:
         description: Your Typesense API Key.
         required: true
-    TYPESENSE_HOST:
+    host:
         description: The hostname or IP address of your Typesense server.
         required: true
-    TYPESENSE_PORT:
+    port:
         description: The port of your Typesense server. Defaults to "8108".
         required: false
         default: "8108"
-    TYPESENSE_PROTOCOL:
+    protocol:
         description: The protocol over which the scraper should connect to your Typesense server. Defaults to "http".
         required: false
         default: http
-    CONFIG_PATH:
+    config:
         description: The path to your DocSearch config JSON file, relative to the root of your repository. Defaults to "docsearch.config.json".
         required: false
         default: docsearch.config.json
@@ -32,14 +32,9 @@ runs:
       shell: bash
       run: |
         docker run \
-          -e TYPESENSE_API_KEY="$TYPESENSE_API_KEY" \
-          -e TYPESENSE_HOST="$TYPESENSE_HOST" \
-          -e TYPESENSE_PORT="$TYPESENSE_PORT" \
-          -e TYPESENSE_PROTOCOL="$TYPESENSE_PROTOCOL" \
-          -e CONFIG="$(cat ${{ inputs.CONFIG_PATH }} | jq -r tostring)" \
+          -e TYPESENSE_API_KEY="${{ inputs.api-key }}" \
+          -e TYPESENSE_HOST="${{ inputs.host }}" \
+          -e TYPESENSE_PORT="${{ inputs.port }}" \
+          -e TYPESENSE_PROTOCOL="${{ inputs.protocol }}" \
+          -e CONFIG="${{ inputs.config }}" \
           typesense/docsearch-scraper
-      env:
-        TYPESENSE_API_KEY: ${{ inputs.TYPESENSE_API_KEY }}
-        TYPESENSE_HOST: ${{ inputs.TYPESENSE_HOST }}
-        TYPESENSE_PORT: ${{ inputs.TYPESENSE_PORT }}
-        TYPESENSE_PROTOCOL: ${{ inputs.TYPESENSE_PROTOCOL }}
