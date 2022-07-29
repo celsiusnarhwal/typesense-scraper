@@ -26,11 +26,15 @@ inputs:
         default: docsearch.config.json
 
 runs:
-  using: docker
-  image: docker://typesense/docsearch-scraper
-  env:
-      TYPESENSE_API_KEY: ${{ inputs.api-key }}
-      TYPESENSE_HOST: ${{ inputs.host }}
-      TYPESENSE_PORT: ${{ inputs.port }}
-      TYPESENSE_PROTOCOL: ${{ inputs.protocol }}
-      CONFIG: ${{ inputs.config }}
+  using: composite
+  steps:
+    - name: Run DocSearch Scraper
+      shell: bash
+      run: |
+        docker run \
+          -e TYPESENSE_API_KEY="${{ inputs.api-key }}" \
+          -e TYPESENSE_HOST="${{ inputs.host }}" \
+          -e TYPESENSE_PORT="${{ inputs.port }}" \
+          -e TYPESENSE_PROTOCOL="${{ inputs.protocol }}" \
+          -e CONFIG="${{ inputs.config }}" \
+          typesense/docsearch-scraper
