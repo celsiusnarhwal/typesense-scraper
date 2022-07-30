@@ -4,8 +4,8 @@
 
 
 This GitHub Action will run [Typesense](https://typesense.org)'s [DocSearch Scraper](https://github.com/typesense/typesense-docsearch-scraper)
-on your documentation site. This action was created with GitHub Pages sites in mind, but strictly speaking, it will
-work on any repository that has a DocSearch config file. What's that, you ask? We'll get to that in a moment.
+on your documentation site. This action works best with sites whose source code is on GitHub, but strictly speaking, 
+it will work on any repository that has a DocSearch config file. What's that, you ask? We'll get to that in a moment.
 
 ## Usage
 
@@ -46,17 +46,23 @@ steps:
   - name: Run DocSearch Scraper
     uses: celsiusnarhwal/typesense-scraper@v2
     with:
-      api-key: ${{ secrets.TYPESENSE_API_KEY }}   # Make sure this matches the name of your secret
-      host: xxx.a1.typesense.net    # Replace with the hostname of your Typesense server
-      port: 8081    # Replace with the port of your Typesense server
-      protocol: http    # Replace with "https" if necessary
-      config: /path/to/your/docsearch.config.json    # Replace with the path to your DocSearch config file (relative to the root of your repository)
+      # The secret containing your Typesense API key. Required.
+      api-key: ${{ secrets.TYPESENSE_API_KEY }}
+      
+      # The hostname or IP address of your Typesense server. Required.
+      host: xxx.a1.typesense.net
+      
+      # The port on which your Typesense server is listening. Optional. Default: 8108.
+      port: 8108
+      
+      # The protocol to use when connecting to your Typesense server. Optional. Default: http.
+      protocol: http
+      
+      # The path to your DocSearch config file. Optional. Default: docsearch.config.json.
+      config: docsearch.config.json
 ```
 
-The `port`, `protocol`, and `config` arguments are optional; if you don't specify them, they will default to
-`8081`, `http`, and `docsearch.config.json`, respectively.
-
-When run, the action will scrape your website according to your DocSearch config file and push the results to Typesense.
+That's all there is to it.
 
 # License
 
